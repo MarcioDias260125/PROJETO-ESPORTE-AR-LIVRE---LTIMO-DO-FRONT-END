@@ -1,0 +1,24 @@
+<div id="div-form">
+    <h2>{{editar? 'Alterar': 'Cadastrar' }} Corrida </h2>
+    
+    <form id="form-atleta" (submit)="dadosFormulario()" >
+        <label for="corrida">Descrição da Corrida</label>
+        <textarea name="corrida" [(ngModel)] = "descricao_corrida" id="corrida" class="elem-form01" placeholder="Descreva a corrida" maxlength="300"></textarea>
+
+        <label for="data_corrida">Data Corrida</label>
+        <input type="date" name="data_corrida"   [(ngModel)] = "data_corrida" id="data_corrida" class="input02" required>
+
+        <label for="sexo">Distâncias Disponíveis</label>
+        <div id="div-checkbox">
+            <input type="checkbox" name="distancia5km" [(ngModel)] = "distancia5km" id="distancia5km" class="btnSelecao" value="5km"> 5Km
+            <input type="checkbox" name="distancia10km" [(ngModel)] = "distancia10km" id="distancia10km" class="btnSelecao" value="10km"> 10Km
+            <input type="checkbox" name="distancia25km"  [(ngModel)] = "distancia25km" id="distancia25km" class="btnSelecao" value="25km"> 25Km
+        </div>
+
+        <div id="div-btns">
+            <button type="submit" id="btnAdd">{{editar? 'Alterar': 'Cadastrar' }} Corrida </button>
+            <button type="reset" id="btnLimpar"> Limpar </button>
+        </div>
+
+    </form>
+</div>

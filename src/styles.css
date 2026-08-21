@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+
+:root{
+    --cor-primaria: #92400E;
+    --cor-secundaria: #0369A1;
+    --branca:#ffffff;
+    --cor-botao1: #0369A1;
+    --cor-botao2: #F97316;
+    --cor01: #166534;
+    --cor02: #FACC15;
+}

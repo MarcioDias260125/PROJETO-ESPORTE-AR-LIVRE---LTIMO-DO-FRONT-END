@@ -1,0 +1,44 @@
+#div-lista{
+    width: 1000px;
+    padding: 25px;
+    margin: 20px auto;
+    color: var( --cor-secundaria);
+}
+
+h2{
+    margin: 30px 0px;
+}
+
+.item-atletas{
+    margin: 20px 0px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*FORMATAÇÃO DOS BOTÕES*/
+.lnk-editar, .lnk-excluir {
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100px;
+    text-align: center;
+    margin: 8px 0px;
+    transition: opacity 0.5s ease;
+    letter-spacing: 3px;
+    cursor: pointer;
+}
+
+a:hover {
+    opacity: 0.5;
+}
+
+.lnk-editar {
+    margin-right: 10px;
+    color: var(  --cor-primaria);
+}
+
+.lnk-excluir {
+    margin-left: 10px;
+    color: var( --cor-botao2);
+}

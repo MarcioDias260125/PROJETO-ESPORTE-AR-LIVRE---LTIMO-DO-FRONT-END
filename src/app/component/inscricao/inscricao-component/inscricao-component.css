@@ -1,0 +1,169 @@
+/* ============================================================
+   Container principal — mesma ideia do #div-form usado em
+   atleta-component.css e corrida-component.css, mas um pouco
+   menor pois esse formulário tem menos campos.
+   ============================================================ */
+#div-form {
+    width: 850px;
+    min-height: 550px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--branca);
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+    color: var(--cor-secundaria);
+}
+
+h2 {
+    text-transform: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #111827;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E5E7EB;
+    margin-bottom: 25px;
+}
+
+/* Cada "linha" do formulário vira duas colunas lado a lado,
+   igual ao print (Atleta + CPF / Corrida + Distância / Camiseta + Categoria) */
+.linha-dupla {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.campo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #374151;
+    padding-bottom: 8px;
+}
+
+select,
+input[type=text] {
+    height: 40px;
+    padding: 0px 12px;
+    font-size: 14px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    color: #111827;
+    background-color: var(--branca);
+}
+
+/* Campos "auxiliares" (busca por CPF e categoria calculada)
+   ganham um fundo levemente acinzentado, igual ao print */
+.campo-cinza {
+    background-color: #F3F4F6;
+}
+
+select:disabled,
+input:disabled {
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+    cursor: not-allowed;
+}
+
+/* Grupo de rádios de distância, alinhados na horizontal */
+.grupo-radios {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    gap: 20px;
+}
+
+.radio-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.radio-inline input[type=radio] {
+    width: 16px;
+    height: 16px;
+    margin: 0px;
+    cursor: pointer;
+}
+
+.radio-inline input[type=radio]:disabled {
+    cursor: not-allowed;
+}
+
+/* Caixa de destaque com o valor da inscrição */
+#div-valor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F9FAFB;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin: 10px 0px 20px 0px;
+}
+
+#lbl-valor {
+    font-weight: bold;
+    font-size: 15px;
+    color: #111827;
+}
+
+#valor-inscricao {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--cor01); /* verde já usado no projeto */
+}
+
+/* Linha do checkbox de aceite do regulamento */
+#div-termos {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+#div-termos input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.label-termos {
+    padding: 0px;
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--cor-secundaria);
+    cursor: pointer;
+}
+
+/* Botão final */
+#div-btns {
+    width: 100%;
+}
+
+#btnFinalizar {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--branca);
+    background-color: var(--cor01); /* verde */
+    cursor: pointer;
+}
+
+#btnFinalizar:disabled {
+    background-color: #A7B0BB;
+    cursor: not-allowed;
+}

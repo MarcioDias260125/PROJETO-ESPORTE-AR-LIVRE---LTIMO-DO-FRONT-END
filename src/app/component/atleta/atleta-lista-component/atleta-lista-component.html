@@ -1,0 +1,24 @@
+<div id="div-lista">
+    <h2>Lista Atleta</h2>
+
+      <div id="lista-atletas">
+        @for (elem of listaAtletas(); track elem.id) {
+        <div class="item-atletas">
+            <span class="dados-atleta">
+                {{elem.id}} - {{elem.nome}} - {{elem.cpf}} - {{elem.sexo}} - {{elem.cidade}} -{{elem.uf}}
+            </span>
+            <span class="links-lista">
+                <a class="lnk-editar" (click)="buscarPessoa(elem)"> Editar </a>
+                
+                <a class="lnk-excluir" (click)="excluirAtleta(elem)"> Excluir </a>
+            </span>
+        </div>
+        }@empty{
+        <div class="div-item-pessoa">
+            NENHUM REGISTRO NA LISTA
+        </div>
+        }
+    </div>
+
+
+</div>

@@ -1,0 +1,205 @@
+<!--
+  ============================================================
+  TELA: Inscrição na Corrida
+  ============================================================
+  (ngSubmit) chama finalizarInscricao() lá no .ts quando o
+  usuário aperta ENTER ou clica no botão type="submit".
+  ============================================================
+-->
+<div id="div-form">
+    <h2>Inscrição na Corrida</h2>
+
+    <form id="form-inscricao" (ngSubmit)="finalizarInscricao()">
+
+        <!-- ================= LINHA 1: Atleta + CPF ================= -->
+        <div class="linha-dupla">
+
+            <div class="campo">
+                <label for="atleta">Atleta Cadastrado</label>
+                <!--
+                  [(ngModel)] liga esse <select> ao atributo idAtletaSelecionado.
+                  (change) dispara selecionarAtletaPeloSelect() toda vez que o
+                  usuário escolhe uma opção diferente.
+                -->
+                <select
+                    name="atleta"
+                    id="atleta"
+                    [(ngModel)]="idAtletaSelecionado"
+                    (change)="selecionarAtletaPeloSelect()">
+
+                    <option [value]="0">Selecione o atleta (ou digite o CPF)</option>
+
+                    <!-- @for percorre a lista de atletas vinda da API (signal) -->
+                    @for (atleta of listaAtletas(); track atleta.id) {
+                        <option [value]="atleta.id">{{ atleta.nome }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="cpf">Ou Buscar por CPF</label>
+                <!--
+                  (input) dispara a CADA TECLA digitada, chamando
+                  buscarAtletaPorCpf(), que tenta achar o atleta com
+                  esse CPF na lista já carregada.
+                -->
+                <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    class="campo-cinza"
+                    [(ngModel)]="cpfBusca"
+                    (input)="buscarAtletaPorCpf()"
+                    maxlength="14"
+                    placeholder="000.000.000-00">
+            </div>
+        </div>
+
+        <!-- ================= LINHA 2: Corrida + Distância ================= -->
+        <div class="linha-dupla">
+
+            <div class="campo">
+                <label for="corrida">Corrida Escolhida</label>
+                <select
+                    name="corrida"
+                    id="corrida"
+                    [(ngModel)]="idCorridaSelecionada"
+                    (change)="selecionarCorrida()">
+
+                    <option [value]="0">Selecione a corrida</option>
+
+                    @for (corrida of listaCorridas(); track corrida.id) {
+                        <option [value]="corrida.id">
+                            {{ corrida.descricao_corrida }} ({{ corrida.data_corrida }})
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Distância da Prova</label>
+                <!--
+                  Os três rádios abaixo compartilham o mesmo "name" (fazem
+                  parte do mesmo grupo) e o mesmo [(ngModel)]="distanciaEscolhida"
+                  -> só um pode ficar marcado por vez.
+
+                  [disabled] usa a função distanciaDisponivel() do .ts para
+                  travar a opção quando a corrida escolhida NÃO oferece
+                  aquela distância.
+                -->
+                <div class="grupo-radios">
+                    <label class="radio-inline">
+                        <input
+                            type="radio"
+                            name="distancia"
+                            value="5km"
+                            [(ngModel)]="distanciaEscolhida"
+                            [disabled]="!distanciaDisponivel('5km')"> 5km
+                    </label>
+
+                    <label class="radio-inline">
+                        <input
+                            type="radio"
+                            name="distancia"
+                            value="10km"
+                            [(ngModel)]="distanciaEscolhida"
+                            [disabled]="!distanciaDisponivel('10km')"> 10km
+                    </label>
+
+                    <label class="radio-inline">
+                        <input
+                            type="radio"
+                            name="distancia"
+                            value="25km"
+                            [(ngModel)]="distanciaEscolhida"
+                            [disabled]="!distanciaDisponivel('25km')"> 25km
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= LINHA 3: Camiseta + Categoria ================= -->
+        <div class="linha-dupla">
+
+            <div class="campo">
+                <label for="camiseta">Tamanho da Camiseta (Kit)</label>
+                <select
+                    name="camiseta"
+                    id="camiseta"
+                    [(ngModel)]="tamanhoCamiseta">
+
+                    <option value="">Selecione</option>
+                    <option value="PP">PP</option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XG">XG</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="categoria">Categoria / Faixa Etária</label>
+                <!--
+                  Esse select fica DESABILITADO até que um atleta seja
+                  selecionado, pois as opções (opcoesCategoria, um getter
+                  do .ts) dependem do sexo do atleta escolhido.
+                -->
+                <select
+                    name="categoria"
+                    id="categoria"
+                    class="campo-cinza"
+                    [(ngModel)]="categoriaEscolhida"
+                    [disabled]="!atletaSelecionado">
+
+                    <option value="">
+                        {{ atletaSelecionado ? 'Selecione a categoria' : 'Selecione um atleta primeiro' }}
+                    </option>
+
+                    @for (opcao of opcoesCategoria; track opcao) {
+                        <option [value]="opcao">{{ opcao }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <!-- ================= VALOR DA INSCRIÇÃO ================= -->
+        <div id="div-valor">
+            <span id="lbl-valor">Valor da Inscrição:</span>
+            <!--
+              valorInscricao é um getter do .ts: recalcula sozinho toda
+              vez que a distância escolhida muda.
+            -->
+            <span id="valor-inscricao">
+                R$ {{ valorInscricao.toFixed(2).replace('.', ',') }}
+            </span>
+        </div>
+
+        <!-- ================= ACEITE DO REGULAMENTO ================= -->
+        <div id="div-termos">
+            <input
+                type="checkbox"
+                name="termos"
+                id="termos"
+                [(ngModel)]="aceiteTermos">
+            <label for="termos" class="label-termos">
+                Li e aceito os termos do regulamento da prova e declaração de saúde.
+            </label>
+        </div>
+
+        <!-- ================= BOTÃO FINAL ================= -->
+        <div id="div-btns">
+            <!--
+              [disabled] chama formularioValido() a cada mudança de tela:
+              o botão só fica clicável quando tudo estiver preenchido.
+            -->
+            <button
+                type="submit"
+                id="btnFinalizar"
+                [disabled]="!formularioValido()">
+                Finalizar e Ir para Pagamento
+            </button>
+        </div>
+
+    </form>
+</div>

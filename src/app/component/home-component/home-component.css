@@ -1,0 +1,27 @@
+#div-home{
+    width: 1000px;
+    height: 650px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border: 1px solid var(--cor-secundaria);
+    color: var(--cor-secundaria);
+
+}
+
+p{
+ text-transform: uppercase;
+ font-size: 100px;
+}
+
+#titulo-home{
+    text-transform: uppercase;
+    margin: 0px 20px;
+    color: var(--cor02);
+    border: 1px solid var(--cor02);
+    padding: 25px;
+    background-color: var(--cor-secundaria);
+    letter-spacing: 5px;
+}
