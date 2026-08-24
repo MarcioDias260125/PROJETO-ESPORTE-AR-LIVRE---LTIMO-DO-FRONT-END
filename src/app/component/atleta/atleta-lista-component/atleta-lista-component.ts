@@ -39,6 +39,23 @@ export class AtletaListaComponent {
 
   }
 
+  calcularIdade(dataNs: string): number | string {
+    if (!dataNs) return '-'
+
+    const nascimento = new Date (dataNs)
+    const hoje = new Date()
+
+    let idade = hoje.getFullYear () - nascimento.getFullYear()
+    const mes = hoje.getMonth() - nascimento.getMonth()
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade --
+    }
+
+    return idade
+
+  }
+
   //EXCLUIR ATLETA
   excluirAtleta(atleta: Atleta){
     if(confirm(`Deseja excluir ${atleta.nome} da competição? `)){
