@@ -39,13 +39,24 @@ export class AtletaListaComponent {
 
   }
 
+  //Calculadora feita para ter a idade exata do Atleta conforme a data que ele escolher no Calendário, tudo de maneira automática.
+
   calcularIdade(dataNs: string): number | string {
-    if (!dataNs) return '-'
+    // O "if" é a verificação de Segurança - se a data de nasciment estiver vazia,
+    // a funçõa não vai executar o cálculo.
+    if (!dataNs) return '-' 
+
+    // Convertendo a string para data:
+    // O dataNs chega no formato yyyy-mm-dd, e o "new Date()"
+    // transforma em um objeto de daa que o Js consegue entender.
 
     const nascimento = new Date (dataNs)
     const hoje = new Date()
 
+    // O let idade faz o cálculo inicial (aproximado)
     let idade = hoje.getFullYear () - nascimento.getFullYear()
+
+    // Nesta etapa é feita a verificação da data
     const mes = hoje.getMonth() - nascimento.getMonth()
 
     if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
