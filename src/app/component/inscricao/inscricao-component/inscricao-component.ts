@@ -2,9 +2,9 @@ import { Component, ChangeDetectorRef, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// ------------------------------------------------------------
+
 // ARQUIVOS COM QUEM ESTE COMPONENTE SE CONECTA
-// ------------------------------------------------------------
+
 // SERVICES (fazem as chamadas HTTP para a API):
 import { AtletaService } from '../../../service/atleta-service';
 // -> src/app/service/atleta-service.ts

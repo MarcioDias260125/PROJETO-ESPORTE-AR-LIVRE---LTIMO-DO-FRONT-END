@@ -23,6 +23,7 @@ export class AtletaComponent {
   bairro = ''
   cidade = ''
   uf = ''
+  dataNs = ''
 
   editar = false
   idAtleta = 0
@@ -61,6 +62,7 @@ export class AtletaComponent {
           this.bairro = objAtleta.bairro
           this.cidade = objAtleta.cidade
           this.uf = objAtleta.uf
+          this.dataNs = objAtleta.dataNs
 
           //PARA DETECTAR ALTERAÇÃO NO COMPENENT
           this.cdr.detectChanges()
