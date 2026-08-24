@@ -51,10 +51,11 @@ export class AtletaListaComponent {
     // transforma em um objeto de daa que o Js consegue entender.
 
     const nascimento = new Date (dataNs)
-    const hoje = new Date()
+    const hoje = new Date() //a data considerada é a nativa do dispositivo onde está sendo executado.
+
 
     // O let idade faz o cálculo inicial (aproximado)
-    let idade = hoje.getFullYear () - nascimento.getFullYear()
+    let idade = hoje.getFullYear () - nascimento.getFullYear() 
 
     // Nesta etapa é feita a verificação da data
     const mes = hoje.getMonth() - nascimento.getMonth()
@@ -65,6 +66,8 @@ export class AtletaListaComponent {
 
     return idade
 
+    // O ideal é colocar essa Lógica no service. Esse comando roda em qualquer TypeS.,
+    //Porém, por conta da semântica e organização, é melhor no service.
   }
 
   //EXCLUIR ATLETA
