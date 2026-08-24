@@ -83,6 +83,7 @@ export class AtletaComponent {
     pessoaAtleta.bairro = this.bairro
     pessoaAtleta.cidade = this.cidade
     pessoaAtleta.uf = this.uf
+    pessoaAtleta.dataNs = this.dataNs  // Adicionado - SEM IA !!!!!!
 
     if (!this.editar) {
       this.atletaService.adicionarAtleta(pessoaAtleta)
