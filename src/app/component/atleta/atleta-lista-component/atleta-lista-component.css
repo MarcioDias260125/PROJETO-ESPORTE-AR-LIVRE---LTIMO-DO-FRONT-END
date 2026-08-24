@@ -1,44 +1,112 @@
-#div-lista{
-    width: 1000px;
-    padding: 25px;
-    margin: 20px auto;
-    color: var( --cor-secundaria);
+#div-lista {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px;
 }
 
-h2{
-    margin: 30px 0px;
+#div-lista h2 {
+    color: #1a5490;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
-.item-atletas{
-    margin: 20px 0px;
-    padding: 10px;
+#lista-atletas {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-atletas {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #1a5490;
+    border-radius: 8px;
+    padding: 14px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-/*FORMATAÇÃO DOS BOTÕES*/
-.lnk-editar, .lnk-excluir {
-    text-decoration: none;
-    text-transform: uppercase;
-    width: 100px;
-    text-align: center;
-    margin: 8px 0px;
-    transition: opacity 0.5s ease;
-    letter-spacing: 3px;
+.item-atletas:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.dados-atleta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.tag {
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.tag-id {
+    background: #e2e8f0;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.tag-nome {
+    background: transparent;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 4px 4px;
+}
+
+.tag-idade {
+    background: #e8f1fb;
+    color: #1a5490;
+    font-weight: 600;
+}
+
+.links-lista {
+    display: flex;
+    gap: 18px;
+    flex-shrink: 0;
+}
+
+.lnk-editar,
+.lnk-excluir {
     cursor: pointer;
-}
-
-a:hover {
-    opacity: 0.5;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
 }
 
 .lnk-editar {
-    margin-right: 10px;
-    color: var(  --cor-primaria);
+    color: #92400e;
 }
 
 .lnk-excluir {
-    margin-left: 10px;
-    color: var( --cor-botao2);
+    color: #ea580c;
+}
+
+.lnk-editar:hover,
+.lnk-excluir:hover {
+    opacity: 0.65;
+}
+
+.div-item-pessoa {
+    text-align: center;
+    color: #94a3b8;
+    padding: 40px 0;
+    font-style: italic;
+    border: 1px dashed #e2e8f0;
+    border-radius: 8px;
 }
