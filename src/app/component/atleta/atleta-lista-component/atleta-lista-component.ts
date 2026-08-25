@@ -39,7 +39,7 @@ export class AtletaListaComponent {
 
   }
 
-  //Calculadora feita para ter a idade exata do Atleta conforme a data que ele escolher no Calendário, tudo de maneira automática.
+    // CALCULAR IDADE 
 
   calcularIdade(dataNs: string): number | string {
     // O "if" é a verificação de Segurança - se a data de nasciment estiver vazia,
