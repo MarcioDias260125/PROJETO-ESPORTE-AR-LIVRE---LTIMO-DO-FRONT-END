@@ -1,97 +1,174 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AtletaListaComponent } from './atleta-lista-component';
+import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+
+import { AtletaService } from '../../../service/atleta-service';
 import { Atleta } from '../../../models/Atleta';
 
-describe('AtletaListaComponent', () => {
-  
-  let service : AtletaListaComponent
-  let httpMock : HttpTestingController
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+describe('AtletaService', () => {
+
+  let service: AtletaService;
+  let httpMock: HttpTestingController
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [
-        AtletaListaComponent,
-        provideHttpClient,
-        provideHttpClientTesting
+        AtletaService,
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
-    }).compileComponents();
+    });
 
-    service = TestBed.inject(AtletaListaComponent)
+    service = TestBed.inject(AtletaService);
 
     httpMock = TestBed.inject(HttpTestingController)
   });
 
-  it ('Resultado esperado é calcular corretamente a idade', () => {
-    const resultado = service.calcularIdade('2004-08-31')
-    expect(resultado).toBe(21);
+  it('deve calcular a idade corretamente', () => {
+    const resultado = service.calcularIdade('1976-05-05');
+
+    expect(resultado).toBe(50);
   });
 
-  it('Resultado esperado a lista de atletas',() =>{
-    const atletas : Atleta [] = [{
-      "nome": "Rute",
-      "cpf" : 78945612300,
-      "sexo" : "",
-      "cep" : 49001456,
-      "rua_logradouro" : "Rua Capela",
-      "bairro" : "Centro",
-      "cidade" : "Aracaju",
-      "uf" : "SE",
-      "dataNs" : "1980-02-12",
-      "id" : 1,
-    },
-    {
-      "nome": "Maria",
-      "cpf" : 909090323,
-      "sexo" : "",
-      "cep" : 49090273,
-      "rua_logradouro" : "Rua Arauá",
-      "bairro" : "Centro",
-      "cidade" : "Aracaju",
-      "uf" : "SE",
-      "dataNs" : "1985-02-12",
-      "id" : 2,
-    }]
+  it('Deve retornar os atletas', () => {
 
-   service.listarAtletas().subscribe(result => {
-    expect(result).toEqual(atletas)
-   })
+    const atletasMock: Atleta[] = [
+      {
+        "nome": "João",
+        "cpf": 12345678910,
+        "sexo": "M",
+        "cep": 49123123,
+        "bairro": "Centro",
+        "cidade": "Aracaju",
+        "uf": "Se",
+        "dataNs": "2000-02-25",
+        "id": 1,
+        "rua_logradouro": "Rua Sei lá das quantas"
+      },
+      {
+        "nome": "Maria",
+        "cpf": 11122233302,
+        "sexo": "F",
+        "cep": 49123123,
+        "bairro": "Centro",
+        "cidade": "Aracaju",
+        "uf": "Se",
+        "dataNs": "2010-02-20",
+        "id": 2,
+        "rua_logradouro": "Rua Sei lá das quantas"
+      }
+    ]
 
-    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta')
+    service.listarAtletas().subscribe(atletas => {
+      expect(atletas.length).toBe(2)
+      expect(atletas[0].nome).toBe('João')
+      expect(atletas[1].nome).toBe('Maria')
+    })
 
-    expect(requisicao.request.method).toBe('GET')
+    //const request = httpMock.expectOne('http://localhost:3000/atletas')
 
-    requisicao.flush(atletas)
+    const request = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta')
+
+    expect(request.request.method).toEqual('GET')
+
+    request.flush(atletasMock)
+
   })
 
-  it ('Resultado esperado adicionar atleta', () => {
-    const atleta : Atleta ={
-      "nome": "José",
-      "cpf" : 12345609876,
-      "sexo" : "",
-      "cep" : 49090275,
-      "rua_logradouro" : "Rua Itaporanga",
-      "bairro" : "Centro",
-      "cidade" : "Aracaju",
-      "uf" : "SE",
-      "dataNs" : "1985-02-15",
-      "id" : 3,
+  // POST
+  it('deve adicionar uma pessoa', () => {
 
+    const atleta: Atleta = {
+      "nome": "Maria Flor",
+      "cpf": 12345678910,
+      "sexo": "M",
+      "cep": 49123123,
+      "bairro": "Centro",
+      "cidade": "Aracaju",
+      "uf": "Se",
+      "dataNs": "2000-02-25",
+      "id": 3,
+      "rua_logradouro": "Rua Sei lá das quantas"
     }
 
-    service.alterarAtleta(atleta).subscribe(result =>{
-      expect(result).toEqual(atleta)
-    })
-    
-    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/3')
 
-    expect(requisicao.request.method).toBe('POST')
+    service.salvarAtleta(atleta).subscribe(atletas => {
 
-    requisicao.flush(atleta)
-  })
+      expect(atletas).toEqual(atletas);
+
+    });
+
+
+    const request = httpMock.expectOne(
+      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta'
+    );
+
+
+    expect(request.request.method).toEqual('POST');
+
+    expect(request.request.body).toEqual(atleta);
+
+    request.flush(atleta);
+
+  });
+
+
+  // PUT
+  it('deve editar um atleta', () => {
+
+    const atleta: Atleta = {
+      "nome": "João Souza",
+      "cpf": 12345678910,
+      "sexo": "M",
+      "cep": 49123123,
+      "bairro": "Centro",
+      "cidade": "Aracaju",
+      "uf": "Se",
+      "dataNs": "2000-02-25",
+      "id": 1,
+      "rua_logradouro": "Rua Sei lá das quantas"
+    }
+
+
+    service.alterarAtleta(atleta).subscribe(atletas => {
+
+      expect(atletas).toEqual(atleta);
+
+    });
+
+
+    const request = httpMock.expectOne(
+      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/1'
+    );
+
+
+    expect(request.request.method).toBe('PUT');
+
+    expect(request.request.body).toEqual(atleta);
+
+
+    request.flush(atleta);
+
+  });
+
+
+  // DELETE
+  it('deve excluir um atleta', () => {
+
+    service.excluirAtleta(1).subscribe();
+
+
+    const request = httpMock.expectOne(
+      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/1'
+    );
+
+
+    expect(request.request.method).toBe('DELETE');
+
+
+    request.flush(null);
+
+  });
 
 });
-
-

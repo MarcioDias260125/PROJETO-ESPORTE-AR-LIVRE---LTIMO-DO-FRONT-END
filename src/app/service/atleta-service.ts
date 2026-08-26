@@ -1,98 +1,96 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Atleta } from '../models/Atleta';
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AtletaService {
-  //DECLARAÇÃO CONSTRUTOR
-  constructor(private http: HttpClient) { }
 
-  //ADICIONAR NA API
-  adicionarAtleta(atleta: Atleta): Observable<Atleta> {
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta`
+    constructor(private http: HttpClient) { }
 
-    return this.http.post<Atleta>(urlApi, atleta)
-  }
+    listarAtletas(): Observable<Atleta[]> {
+       // const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta`
 
-  //LISTAR ATLETAS NA API
-  listarAtletas(): Observable<Atleta[]> {
-    // Corrigido: antes esta função apontava para uma API local
-    // (http://127.0.0.1:8000/pessoa/) que nunca existiu de fato,
-    // enquanto adicionarAtleta() já usava o mockapi.io. Isso fazia
-    // com que o cadastro até funcionasse (POST ia pro mockapi),
-    // mas a listagem nunca encontrasse ninguém (GET ia pra um
-    // servidor local inexistente) — parecendo que "não cadastrava".
-    // Agora as duas usam o mesmo endpoint do mockapi.io.
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta`
-
-    return this.http.get<Atleta[]>(urlApi)
-  }
-
-  //LISTAR ATLETA
-  listarAtleta(idAtleta: number): Observable<Atleta> {
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${idAtleta}`
-
-    return this.http.get<Atleta>(urlApi)
-  }
-
-  //EXCLUIR NA API
-  exluirAtleta(atleta: Atleta): Observable<Atleta> {
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${atleta.id}`
-
-    return this.http.delete<Atleta>(urlApi)
-  }
-
-  //ALTERAR NA API
-  alterarAtleta(atleta: Atleta): Observable<Atleta> {
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${atleta.id}`
-
-    return this.http.put<Atleta>(urlApi, atleta)
-  }
-
-  //ALTERAR NA API
-  alterarAtleta2(idAtleta: number, atleta: Atleta): Observable<Atleta> {
-    const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${idAtleta}`
-
-    return this.http.put<Atleta>(urlApi, atleta)
-  }
-
-  /*
-  private atletas: Pessoa[] = []
-
-  adicionar(pessoa: Pessoa) {
-    //ARRRRMENGUEEEE PARA GERAR O ID
-    pessoa.id = this.atletas.length + 1
-    
-    this.atletas.push(pessoa)
-  }
-
-  listar() {
-    console.table(this.atletas)
-    return this.atletas
-  }
-
-  private localizarAtleta(idAtleta: number){
-    return this.atletas.findIndex(elem => elem.id === idAtleta)
-  }
-
-  remover(posicaoArray: number){
-    this.atletas.splice(1,posicaoArray)
-  }
-
-  remover2(pessoa: Pessoa){
-    this.atletas = this.atletas.filter(elem => elem.id !== pessoa.id)
-  }
-
-  alterar(pessoa : Pessoa){
-    let posArray = this.localizarAtleta(pessoa.id)
-
-    if(posArray >=0){
-      this.atletas[posArray] = pessoa
+        const urlApi = `http://127.0.0.1:8000/pessoa/`
+        
+        return this.http.get<Atleta[]>(urlApi)
     }
 
-  }*/
+    listarAtleta(idAtleta: number): Observable<Atleta> {
+        const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${idAtleta}`
+        return this.http.get<Atleta>(urlApi)
+    }
+
+    salvarAtleta(atleta: Atleta): Observable<Atleta> {
+        const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta`
+        return this.http.post<Atleta>(urlApi, atleta)
+    }
+
+    excluirAtleta(idAtleta: number): Observable<Atleta> {
+        const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${idAtleta}`
+        return this.http.delete<Atleta>(urlApi)
+    }
+
+    alterarAtleta(atleta: Atleta): Observable<Atleta> {
+        const urlApi = `https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/${atleta.id}`
+
+        return this.http.put<Atleta>(urlApi, atleta)
+    }
+
+    //CALCULO IDADE
+    //aaaa-MM-dd
+    calcularIdade(data_nascimento: string): number{
+        const dt_nascimento = new Date(data_nascimento + "T00:00:00")
+        const hoje = new Date()
+
+        let idade = hoje.getFullYear() - dt_nascimento.getFullYear() 
+        const resp_calc_mes = hoje.getMonth() -dt_nascimento.getMonth()
+
+        if(resp_calc_mes < 0 || (resp_calc_mes === 0 && hoje.getDate() < dt_nascimento.getDate())){
+            idade--
+        }
+        
+        return idade
+    }
+
+
+    /*
+    //DECLARANDO ARRAY atletas
+    private atletas: Atleta[] = []
+
+    //DECLARAÇÃO DAS FUNÇÕES DE MANIPULAÇÃO DO ARRAY
+    //ADICIONANDO ELEMNTO
+    adicionarAtleta(atleta: Atleta){
+        //ARRRRRMMMMMENNGUE PARA GERAR ID
+        atleta.id = this.atletas.length + 1
+        this.atletas.push(atleta)
+    }
+
+    //LISTAR ELEMENTOS
+    listarAtletas(){
+        console.table(this.atletas)
+
+        return this.atletas
+    }
+
+    //REMOVER ELEMENTO
+    removerElemento(idAtleta: number){
+        this.atletas = this.atletas.filter(elem=>elem.id !== idAtleta)
+    }
+
+    //REMOVER ELEMENTO2
+    removerElemento2(atleta: Atleta){
+        let posArray = this.atletas.findIndex(elem=>elem.id !== atleta.id)
+        this.atletas.splice(1,posArray)
+    }
+
+    //ALTERANDO ELEMENTO DO ARRAY
+    alterarElemento(atleta: Atleta){
+        let posArray = this.atletas.findIndex(elem=>elem.id !== atleta.id)
+        this.atletas[posArray] = atleta
+    }*/
+
 
 }
