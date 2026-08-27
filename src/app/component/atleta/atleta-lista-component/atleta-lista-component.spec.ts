@@ -26,14 +26,17 @@ describe('AtletaListaComponent', () => {
 
   });
 
+  afterEach(() => {
+    httpMock.verify()
+  });
+
   it('Resultado esperado é calcular corretamente a idade', () => {
     const resultado = service.calcularIdade('1976-02-28')
     expect(resultado).toBe(50);
   });
 
   it('Resultado esperado a lista de atletas', () => {
-    const atletas: Atleta[] = [
-      {
+    const atletas: Atleta[] = [{
       "nome": "Rute",
       "cpf": 78945612300,
       "sexo": "",
@@ -43,6 +46,8 @@ describe('AtletaListaComponent', () => {
       "cidade": "Aracaju",
       "uf": "SE",
       "data_nascimento": "1980-02-12",
+      "peso": 60,
+      "altura": 1.65,
       "id": 1
     },
     {
@@ -55,6 +60,8 @@ describe('AtletaListaComponent', () => {
       "cidade": "Aracaju",
       "uf": "SE",
       "data_nascimento": "1980-02-12",
+      "peso": 60,
+      "altura": 1.65,
       "id": 2
     }]
 
@@ -80,6 +87,8 @@ describe('AtletaListaComponent', () => {
       "cidade": "Aracaju",
       "uf": "SE",
       "data_nascimento": "1980-02-12",
+      "peso": 70,
+      "altura": 1.75,
       "id": 3
     }
 
@@ -106,6 +115,8 @@ describe('AtletaListaComponent', () => {
       "cidade": "Aracaju",
       "uf": "SE",
       "data_nascimento": "1980-02-12",
+      "peso": 80,
+      "altura": 1.80,
       "id": 3
     }
 
@@ -132,6 +143,8 @@ describe('AtletaListaComponent', () => {
       "cidade": "Aracaju",
       "uf": "SE",
       "data_nascimento": "1980-02-12",
+      "peso": 80,
+      "altura": 1.80,
       "id": 3
     }
 
