@@ -4,23 +4,12 @@
       <div id="lista-atletas">
         @for (elem of listaAtletas(); track elem.id) {
         <div class="item-atletas">
-            <span class="dados-atleta">  
-                
-                <span class="tag tag-id">#{{elem.id}}</span>
-                <span class="tag tag-nome">{{elem.nome}}</span>
-                @if (elem.cpf) {
-                <span class="tag">CPF: {{elem.cpf}}</span>
-                }
-                @if (elem.sexo) {
-                <span class="tag">{{elem.sexo}}</span>
-                }
-                @if (elem.cidade) {
-                <span class="tag">{{elem.cidade}}{{elem.uf ? '/' + elem.uf : ''}}</span>
-                }
-                <span class="tag tag-idade">{{calcularIdade(elem.dataNs)}} anos</span>
+            <span class="dados-atleta">
+                {{elem.id}} - {{elem.nome}} - {{elem.cpf}} - {{elem.sexo}} -  {{calcIdade(elem.data_nascimento)}} anos - {{elem.cidade}} - {{elem.uf}} - IMC: {{calcImc(elem).toFixed(2).replace('.',',')}} - {{sitIMC(imc)}}
             </span>
             <span class="links-lista">
                 <a class="lnk-editar" (click)="buscarPessoa(elem)"> Editar </a>
+                
                 <a class="lnk-excluir" (click)="excluirAtleta(elem)"> Excluir </a>
             </span>
         </div>
@@ -30,4 +19,6 @@
         </div>
         }
     </div>
+
+
 </div>

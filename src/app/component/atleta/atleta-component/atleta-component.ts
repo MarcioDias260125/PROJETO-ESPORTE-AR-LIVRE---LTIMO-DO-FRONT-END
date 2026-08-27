@@ -17,23 +17,24 @@ export class AtletaComponent {
   id = 0
   nome = ''
   cpf = 0
+  data_nascimento = ''
   sexo = ''
   cep = 0
   rua_logradouro = ''
   bairro = ''
   cidade = ''
   uf = ''
-  dataNs = ''
+  peso = 0
+  altura = 0
 
   editar = false
   idAtleta = 0
-
+  
   //DECLARAÇÃO DO CONSTRUTOR  
   constructor(
-    private atletaService: AtletaService, 
-    private route: ActivatedRoute, 
-    private cdr: ChangeDetectorRef) 
-    { }
+    private atletaService: AtletaService,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef) { }
 
   //DECLARAÇÃO DE FUNÇÕES
   exibeDados() {
@@ -56,13 +57,15 @@ export class AtletaComponent {
           this.id = objAtleta.id
           this.nome = objAtleta.nome
           this.cpf = objAtleta.cpf
+          this.peso = objAtleta.peso
+          this.altura = objAtleta.altura
+          this.data_nascimento = objAtleta.data_nascimento
           this.sexo = objAtleta.sexo
           this.cep = objAtleta.cep
           this.rua_logradouro = objAtleta.rua_logradouro
           this.bairro = objAtleta.bairro
           this.cidade = objAtleta.cidade
           this.uf = objAtleta.uf
-          this.dataNs = objAtleta.dataNs
 
           //PARA DETECTAR ALTERAÇÃO NO COMPENENT
           this.cdr.detectChanges()
@@ -74,19 +77,22 @@ export class AtletaComponent {
   }
 
   enviaDadosAtleta() {
-    const pessoaAtleta = new Atleta()
-    pessoaAtleta.nome = this.nome
-    pessoaAtleta.cpf = this.cpf
-    pessoaAtleta.sexo = this.sexo
-    pessoaAtleta.cep = this.cep
-    pessoaAtleta.rua_logradouro = this.rua_logradouro
-    pessoaAtleta.bairro = this.bairro
-    pessoaAtleta.cidade = this.cidade
-    pessoaAtleta.uf = this.uf
-    pessoaAtleta.dataNs = this.dataNs  // Adicionado - SEM IA !!!!!!
+    const objAtleta = new Atleta()
+    objAtleta.nome = this.nome
+    objAtleta.cpf = this.cpf
+    objAtleta.peso = this.peso
+    objAtleta.altura = this.altura
+    objAtleta.data_nascimento = this.data_nascimento
+    objAtleta.sexo = this.sexo
+    objAtleta.cep = this.cep
+    objAtleta.rua_logradouro = this.rua_logradouro
+    objAtleta.bairro = this.bairro
+    objAtleta.cidade = this.cidade
+    objAtleta.uf = this.uf
+    
 
     if (!this.editar) {
-      this.atletaService.adicionarAtleta(pessoaAtleta)
+      this.atletaService.adicionarAtleta(objAtleta)
         .subscribe({
           next: (resposta) => {
             console.log(resposta)
@@ -96,12 +102,12 @@ export class AtletaComponent {
           }
         })
     } else {
-      pessoaAtleta.id = this.idAtleta
-      
-      this.atletaService.alterarAtleta(pessoaAtleta)
+      objAtleta.id = this.idAtleta
+
+      this.atletaService.alterarAtleta(objAtleta)
         .subscribe({
           next: (resposta) => {
-            console.log(pessoaAtleta)
+            console.log(objAtleta)
 
             console.log(resposta)
           },
@@ -131,6 +137,9 @@ export class AtletaComponent {
   limparAtributos() {
     this.nome = ''
     this.cpf = 0
+    this.peso = 0
+    this.altura = 0
+    this.data_nascimento = ''
     this.sexo = ''
     this.cep = 0
     this.rua_logradouro = ''

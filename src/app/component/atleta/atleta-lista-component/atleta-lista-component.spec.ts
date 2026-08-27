@@ -1,174 +1,152 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 
 import { AtletaService } from '../../../service/atleta-service';
+import { provideHttpClient } from '@angular/common/http';
+
 import { Atleta } from '../../../models/Atleta';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 
+describe('AtletaListaComponent', () => {
 
-describe('AtletaService', () => {
-
-  let service: AtletaService;
+  let service: AtletaService
   let httpMock: HttpTestingController
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       providers: [
         AtletaService,
         provideHttpClient(),
         provideHttpClientTesting()
       ]
-    });
+    }).compileComponents();
 
-    service = TestBed.inject(AtletaService);
+    service = TestBed.inject(AtletaService)
 
     httpMock = TestBed.inject(HttpTestingController)
+
   });
 
-  it('deve calcular a idade corretamente', () => {
-    const resultado = service.calcularIdade('1976-05-05');
-
+  it('Resultado esperado é calcular corretamente a idade', () => {
+    const resultado = service.calcularIdade('1976-02-28')
     expect(resultado).toBe(50);
   });
 
-  it('Deve retornar os atletas', () => {
-
-    const atletasMock: Atleta[] = [
+  it('Resultado esperado a lista de atletas', () => {
+    const atletas: Atleta[] = [
       {
-        "nome": "João",
-        "cpf": 12345678910,
-        "sexo": "M",
-        "cep": 49123123,
-        "bairro": "Centro",
-        "cidade": "Aracaju",
-        "uf": "Se",
-        "dataNs": "2000-02-25",
-        "id": 1,
-        "rua_logradouro": "Rua Sei lá das quantas"
-      },
-      {
-        "nome": "Maria",
-        "cpf": 11122233302,
-        "sexo": "F",
-        "cep": 49123123,
-        "bairro": "Centro",
-        "cidade": "Aracaju",
-        "uf": "Se",
-        "dataNs": "2010-02-20",
-        "id": 2,
-        "rua_logradouro": "Rua Sei lá das quantas"
-      }
-    ]
+      "nome": "Rute",
+      "cpf": 78945612300,
+      "sexo": "",
+      "cep": 49001456,
+      "rua_logradouro": "Rua Capela",
+      "bairro": "Centro",
+      "cidade": "Aracaju",
+      "uf": "SE",
+      "data_nascimento": "1980-02-12",
+      "id": 1
+    },
+    {
+      "nome": "Maria",
+      "cpf": 78945612300,
+      "sexo": "",
+      "cep": 49001456,
+      "rua_logradouro": "Rua Capela",
+      "bairro": "Centro",
+      "cidade": "Aracaju",
+      "uf": "SE",
+      "data_nascimento": "1980-02-12",
+      "id": 2
+    }]
 
-    service.listarAtletas().subscribe(atletas => {
-      expect(atletas.length).toBe(2)
-      expect(atletas[0].nome).toBe('João')
-      expect(atletas[1].nome).toBe('Maria')
+    service.listarAtletas().subscribe(result => {
+      expect(result).toEqual(atletas)
     })
 
-    //const request = httpMock.expectOne('http://localhost:3000/atletas')
+    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta')
 
-    const request = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta')
+    expect(requisicao.request.method).toBe('GET')
 
-    expect(request.request.method).toEqual('GET')
-
-    request.flush(atletasMock)
-
+    requisicao.flush(atletas)
   })
 
-  // POST
-  it('deve adicionar uma pessoa', () => {
-
-    const atleta: Atleta = {
-      "nome": "Maria Flor",
+  it('Resultado esperado adicionar atleta', () => {
+    const atleta : Atleta ={
+      "nome": "Chicó",
       "cpf": 12345678910,
-      "sexo": "M",
-      "cep": 49123123,
+      "sexo": "",
+      "cep": 49001456,
+      "rua_logradouro": "Rua Capela",
       "bairro": "Centro",
       "cidade": "Aracaju",
-      "uf": "Se",
-      "dataNs": "2000-02-25",
-      "id": 3,
-      "rua_logradouro": "Rua Sei lá das quantas"
+      "uf": "SE",
+      "data_nascimento": "1980-02-12",
+      "id": 3
     }
 
+    service.adicionarAtleta(atleta).subscribe(result =>{
+       expect(result).toEqual(atleta)
+    })
 
-    service.salvarAtleta(atleta).subscribe(atletas => {
+    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta')
 
-      expect(atletas).toEqual(atletas);
+    expect(requisicao.request.method).toBe('POST')
 
-    });
+    requisicao.flush(atleta)
+    
+  })
 
-
-    const request = httpMock.expectOne(
-      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta'
-    );
-
-
-    expect(request.request.method).toEqual('POST');
-
-    expect(request.request.body).toEqual(atleta);
-
-    request.flush(atleta);
-
-  });
-
-
-  // PUT
-  it('deve editar um atleta', () => {
-
-    const atleta: Atleta = {
-      "nome": "João Souza",
+  it('Resultado esperado alterar atleta', () => {
+    const atleta : Atleta ={
+      "nome": "Joservaldo",
       "cpf": 12345678910,
-      "sexo": "M",
-      "cep": 49123123,
+      "sexo": "",
+      "cep": 49001456,
+      "rua_logradouro": "Av. sei das quantas",
       "bairro": "Centro",
       "cidade": "Aracaju",
-      "uf": "Se",
-      "dataNs": "2000-02-25",
-      "id": 1,
-      "rua_logradouro": "Rua Sei lá das quantas"
+      "uf": "SE",
+      "data_nascimento": "1980-02-12",
+      "id": 3
     }
 
+    service.alterarAtleta(atleta).subscribe(result =>{
+       expect(result).toEqual(atleta)
+    })
 
-    service.alterarAtleta(atleta).subscribe(atletas => {
+    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/3')
 
-      expect(atletas).toEqual(atleta);
+    expect(requisicao.request.method).toBe('PUT')
 
-    });
+    requisicao.flush(atleta)
+    
+  })
+
+  it('Resultado esperado exclusão do atleta', () => {
+    const atleta : Atleta ={
+      "nome": "Joservaldo",
+      "cpf": 12345678910,
+      "sexo": "",
+      "cep": 49001456,
+      "rua_logradouro": "Av. sei das quantas",
+      "bairro": "Centro",
+      "cidade": "Aracaju",
+      "uf": "SE",
+      "data_nascimento": "1980-02-12",
+      "id": 3
+    }
+
+    service.exluirAtleta(atleta).subscribe(result =>{
+       expect(result).toEqual(atleta)
+    })
+
+    const requisicao = httpMock.expectOne('https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/3')
+
+    expect(requisicao.request.method).toBe('DELETE')
+
+    requisicao.flush(atleta)
+    
+  })
 
 
-    const request = httpMock.expectOne(
-      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/1'
-    );
-
-
-    expect(request.request.method).toBe('PUT');
-
-    expect(request.request.body).toEqual(atleta);
-
-
-    request.flush(atleta);
-
-  });
-
-
-  // DELETE
-  it('deve excluir um atleta', () => {
-
-    service.excluirAtleta(1).subscribe();
-
-
-    const request = httpMock.expectOne(
-      'https://6a7f6d923183f5fd884b1a61.mockapi.io/esportearlivre/atleta/1'
-    );
-
-
-    expect(request.request.method).toBe('DELETE');
-
-
-    request.flush(null);
-
-  });
 
 });

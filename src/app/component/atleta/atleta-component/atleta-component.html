@@ -1,37 +1,52 @@
 <div id="div-form">
     <h2>Cadastro Atleta </h2>
-    
+
     <form id="form-atleta" (ngSubmit)="enviaDadosAtleta()">
         <label for="nome">Nome</label>
-        <input type="text" name="nome" [(ngModel)] = "nome" id="nome" class="input01" required maxlength="80" placeholder="Informe seu nome">
-
-        <label for="dataNs"> Data de Nascimento</label>
-        <input type="date" name="data" [(ngModel)] = "dataNs" id="dataNs" class="input01" placeholder="Data de Nascimento">  
+        <input type="text" name="nome" [(ngModel)]="nome" id="nome" class="input01" required maxlength="80"
+            placeholder="Informe seu nome">
 
         <label for="cpf">CPF</label>
-        <input type="text" name="cpf" [(ngModel)] ="cpf" id="cpf" class="input02" required maxlength="14" placeholder="Informe seu cpf">
+        <input type="text" name="cpf" [(ngModel)]="cpf" id="cpf" class="input02" required maxlength="14"
+            placeholder="Informe seu cpf">
+
+        <label for="altura">Altura</label>
+        <input type="text" name="altura" [(ngModel)]="altura" id="altura" class="input02" required maxlength="14"
+            placeholder="Informe seu altura">
+
+        <label for="peso">peso</label>
+        <input type="text" name="peso" [(ngModel)]="peso" id="peso" class="input02" required maxlength="14"
+            placeholder="Informe seu peso">
+
+
+        <label for="data_nascimento">Data Nascimento*</label>
+        <input type="date" name="data_nascimento" [(ngModel)]="data_nascimento" id="data_nascimento" class="input02"
+            maxlength="14" required>
 
         <label for="sexo">sexo</label>
-        <input type="radio" name="sexo" id="sexoM" class="btnSelecao" value="M" [(ngModel)] = "sexo"> Masculino
-        <input type="radio" name="sexo" id="sexoF" class="btnSelecao" value="F" [(ngModel)] = "sexo"> Feminino
-        <input type="radio" name="sexo" id="sexoN" class="btnSelecao" value="N"  [(ngModel)] = "sexo"> Não se Identificar
+        <input type="radio" name="sexo" id="sexoM" class="btnSelecao" value="M" [(ngModel)]="sexo"> Masculino
+        <input type="radio" name="sexo" id="sexoF" class="btnSelecao" value="F" [(ngModel)]="sexo"> Feminino
+        <input type="radio" name="sexo" id="sexoN" class="btnSelecao" value="N" [(ngModel)]="sexo"> Não se Identificar
 
         <label for="cep">CEP</label>
-        <input type="text" name="cep"  [(ngModel)] = "cep" id="cep" class="input02" required maxlength="9" placeholder="Informe seu cep" >
+        <input type="text" name="cep" [(ngModel)]="cep" id="cep" class="input02" required maxlength="9"
+            placeholder="Informe seu cep">
 
         <label for="rua_logradouro">Rua/Logradouro</label>
-        <input type="text" name="rua_logradouro"  [(ngModel)] = "rua_logradouro" id="rua_logradouro" class="input01" required maxlength="100" placeholder="Informe rua/logradouro">
+        <input type="text" name="rua_logradouro" [(ngModel)]="rua_logradouro" id="rua_logradouro" class="input01"
+            required maxlength="100" placeholder="Informe rua/logradouro">
 
         <label for="bairro">Bairro</label>
-        <input type="text" name="bairro"  [(ngModel)] = "bairro" id="bairro" class="input02" required maxlength="20"
+        <input type="text" name="bairro" [(ngModel)]="bairro" id="bairro" class="input02" required maxlength="20"
             placeholder="Informe seu bairro">
 
         <label for="cidade">Cidade</label>
-        <input type="text" name="cidade"  [(ngModel)] = "cidade" id="cidade" class="input02" required maxlength="60"
+        <input type="text" name="cidade" [(ngModel)]="cidade" id="cidade" class="input02" required maxlength="60"
             placeholder="Informe seu cidade">
 
         <label for="uf">UF</label>
-        <input type="text" name="uf" [(ngModel)] = "uf" id="uf" class="input02" required maxlength="2" placeholder="Informe seu uf">
+        <input type="text" name="uf" [(ngModel)]="uf" id="uf" class="input02" required maxlength="2"
+            placeholder="Informe seu uf">
 
         <div id="div-btns">
             <button type="submit" id="btnAdd">{{ editar ? 'Alterar' : 'Salvar'}}Atleta </button>
