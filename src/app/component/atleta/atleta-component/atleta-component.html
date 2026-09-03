@@ -49,8 +49,11 @@
             placeholder="Informe seu uf">
 
         <div id="div-btns">
-            <button type="submit" id="btnAdd">{{ editar ? 'Alterar' : 'Salvar'}}Atleta </button>
-            <button type="reset" id="btnLimpar"> Cadastrar Atleta </button>
+         <!-- Este envia os dados para a API -->
+        <button type="submit" id="btnAdd">{{ editar ? 'Alterar' : 'Salvar' }} Atleta</button>
+    
+        <!-- Este apenas limpa a tela -->
+        <button type="reset" id="btnLimpar">Limpar Formulário</button>
         </div>
 
     </form>

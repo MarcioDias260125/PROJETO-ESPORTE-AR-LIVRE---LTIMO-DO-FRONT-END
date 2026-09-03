@@ -43,7 +43,7 @@ export class AtletaListaComponent {
   //EXCLUIR ATLETA
   excluirAtleta(atleta: Atleta) {
     if (confirm(`Deseja excluir ${atleta.nome} da competição? `)) {
-      this.http.exluirAtleta(atleta)
+      this.http.excluirAtleta(atleta)
         .subscribe({
           next: (dados) => {
             this.listaAtletas.update(elem =>

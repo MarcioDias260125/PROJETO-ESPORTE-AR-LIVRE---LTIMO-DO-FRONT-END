@@ -27,7 +27,7 @@ export const routes: Routes = [
     },
     {
         path: "listaatleta",
-        component: AtletaComponent
+        component: AtletaListaComponent
     },
     {
         path: "cadastrocorrida",

@@ -1,52 +1,52 @@
 {
-  "hash": "d8e1c6d1",
-  "configHash": "98f9d9ef",
+  "hash": "0ef3e965",
+  "configHash": "ac9a10ac",
   "lockfileHash": "04c3c522",
-  "browserHash": "75368978",
+  "browserHash": "f412d0dc",
   "optimized": {
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "2a9f41df",
+      "fileHash": "489d0f47",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "997af48d",
+      "fileHash": "bf12d7e2",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "d4dffbbb",
+      "fileHash": "e39dce8a",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "2b4932aa",
+      "fileHash": "cdea5fb9",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "32e4edc6",
+      "fileHash": "a46ab968",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-R3J7GF7M": {
-      "file": "chunk-R3J7GF7M.js"
+    "chunk-3KBWVUXM": {
+      "file": "chunk-3KBWVUXM.js"
     },
-    "chunk-AR42SPMJ": {
-      "file": "chunk-AR42SPMJ.js"
+    "chunk-5BE23BLT": {
+      "file": "chunk-5BE23BLT.js"
     },
-    "chunk-FURQI3LM": {
-      "file": "chunk-FURQI3LM.js"
+    "chunk-VSOD33RT": {
+      "file": "chunk-VSOD33RT.js"
     },
-    "chunk-2X3P4EHE": {
-      "file": "chunk-2X3P4EHE.js"
+    "chunk-QFDPH4CL": {
+      "file": "chunk-QFDPH4CL.js"
     },
     "chunk-MRCJAC6H": {
       "file": "chunk-MRCJAC6H.js"
